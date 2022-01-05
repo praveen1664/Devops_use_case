@@ -4,6 +4,7 @@ import uvicorn
 app = FastAPI()
 @app.get("/")
 def home():
+    """Function to represent a meaningful message at home"""
     return {"This is home please go to end point /tree & for swagger docs loc for /docs"}
 @app.get("/tree")
 def tree():
