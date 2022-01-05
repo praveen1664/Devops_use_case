@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ecosiatree
+  name: ecosiatree
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecosiatree
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ecosiatree
+    spec:
+      containers:
+      - image: ecosiatree
+        name: ecosiatree
+        imagePullPolicy: Never
+        resources: {}
+        #resources:
+        #  limits:
+        #    cpu: "1"
+        #  requests:
+        #    cpu: "0.5"
+        ports:
+          - containerPort: 80
+status: {}
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ecosiatree
+  labels:
+    app: ecosiatree
+spec:
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  selector:
+    app: ecosiatree
+  type: NodePort
+  externalTrafficPolicy: Cluster
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ecosiatree
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: local.ecosiatree.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ecosiatree
+                port:
+                  number: 80
+---
