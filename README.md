@@ -1,4 +1,4 @@
-# ecosia_assignment
+# Devops assignment
 main.py is the main file containing our application built upon fast api & uvicorn server. We have also implemented swagger & redoc here. End point '/' will take you to home where a meanigful message is displayed. At end point '/tree' we will be getting favourite tree name whereas at endpoint '/docs' swagger documentation will be visible.
 
 **##Testing**
